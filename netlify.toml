@@ -1,0 +1,13 @@
+[build]
+  command = "PORT=4173 BASE_PATH=/ pnpm --filter @workspace/catherine-vo run build"
+  publish = "artifacts/catherine-vo/dist/public"
+
+[build.environment]
+  NODE_VERSION = "20"
+  PNPM_VERSION = "10"
+
+# SPA fallback for client-side routing (wouter)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
