@@ -7,9 +7,15 @@ import {
   Users,
   TerminalSquare,
   Workflow,
-  ExternalLink
+  ExternalLink,
+  Presentation,
+  LineChart,
+  type LucideIcon
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { useEffect, useState } from "react";
+
+const INTRO_MAILTO = "mailto:cat@catherinevo.com?subject=Intro%20call";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -48,89 +54,143 @@ const tools = [
 ] as const;
 
 const scopeItems = [
-  "Companies of 10–500",
-  "5–15 hours / week",
-  "Education, nonprofit & social impact",
-  "Tech and non-tech",
-  "Founder + Integrator pairing",
-  "Weekly scorecards",
-  "Vision & strategy workshops",
-  "Financial dashboards & revenue insight",
-  "Change management",
-  "Growth-ready leadership teams",
+  "Companies Of 15–150",
+  "5–15 Hours / Week",
+  "Education, Nonprofit & Social Impact",
+  "Tech And Non-Tech",
+  "Founder + Integrator Pairing",
+  "Weekly Scorecards",
+  "Vision & Strategy Workshops",
+  "Financial Dashboards & Revenue Insight",
+  "Change Management",
+  "Growth-Ready Leadership Teams",
 ] as const;
 
-const selectedWork = [
+const selectedWork: {
+  label: string;
+  title: string;
+  outcome: string;
+  outcomeNote: string;
+  body: string;
+  icon: LucideIcon;
+}[] = [
   {
     label: "Facilitation",
     title: "H-E-B Quality Assurance & Food Safety",
-    body: "As a full-time employee, led a full-day vision and strategy workshop that produced one clarified vision statement, six strategic pillars, and business outcomes under each — then followed up with subdomain leaders on key-result workshops that shaped their roadmaps and a shared view of the business unit’s path forward.",
+    outcome: "6 Strategic Pillars",
+    outcomeNote: "Vision + Outcomes",
+    body: "Led a full-day vision workshop, then key-result sessions with subdomain leaders to lock roadmaps.",
+    icon: Presentation,
   },
   {
     label: "Cadence",
-    title: "Integrator seat (EOS-informed)",
-    body: "Stepped into the Integrator role with a growth-ready client and a small executive circle — Visionary pairing, scorecards, and a weekly rhythm. EOS-informed, not certified. I keep what works and skip the dogma.",
+    title: "Integrator Seat (EOS-Informed)",
+    outcome: "Weekly Rhythm",
+    outcomeNote: "Scorecards + Ownership",
+    body: "Sat in the Integrator seat with a growth-ready exec circle — pairing, scorecards, and follow-through without the dogma.",
+    icon: Layers,
   },
   {
-    label: "Finance ops",
-    title: "Custom founder financial dashboards",
-    body: "Built Google Sheets dashboards with year-over-year trends and adjustable projections — insight that informed pricing strategy, sharpened where to focus the sales pipeline, and gave the founder confidence to raise price.",
+    label: "Finance Ops",
+    title: "Custom Founder Financial Dashboards",
+    outcome: "Pricing Confidence",
+    outcomeNote: "YoY + Projections",
+    body: "Built Google Sheets dashboards with trends and adjustable projections that informed pricing and pipeline focus.",
+    icon: LineChart,
   },
-] as const;
+];
 
 const firstNinety = [
   {
     day: "30",
-    title: "See clearly",
+    title: "See Clearly",
     body: "Audit of systems and processes. A prioritized list of gaps — and concrete options to fix them.",
   },
   {
     day: "60",
-    title: "Decide the path",
+    title: "Decide The Path",
     body: "Decisions locked on which improvements to pursue. A practical 1–2 year roadmap the leadership team can own.",
   },
   {
     day: "90",
-    title: "Ship and prove",
+    title: "Ship And Prove",
     body: "First solutions implemented. Processes documented and in testing — so relief shows up in the work, not just the slide deck.",
   },
 ] as const;
 
 export default function Home() {
+  const [showHeaderCta, setShowHeaderCta] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => {
+      setShowHeaderCta(window.scrollY > 220);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen w-full relative overflow-hidden bg-background text-foreground font-sans">
-      {/* Noise overlay for tactile feel */}
-      <div className="pointer-events-none fixed inset-0 z-50 bg-noise mix-blend-overlay opacity-60"></div>
+    <div className="min-h-screen w-full relative overflow-x-hidden bg-background text-foreground font-sans">
+      {/* Noise sits behind content so CTA motion stays visible */}
+      <div className="pointer-events-none fixed inset-0 z-[1] bg-noise mix-blend-overlay opacity-40"></div>
 
       {/* Decorative background blur/gradients */}
       <div 
-        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[120px] opacity-20 pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(var(--secondary)) 0%, rgba(201,168,76,0) 70%)" }}
+        className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full blur-[120px] opacity-20 pointer-events-none z-0"
+        style={{ background: "radial-gradient(circle, hsl(var(--secondary) / 0.9) 0%, transparent 70%)" }}
       ></div>
       <div 
-        className="absolute top-[40%] right-[-10%] w-[40%] h-[60%] rounded-full blur-[140px] opacity-[0.15] pointer-events-none"
-        style={{ background: "radial-gradient(circle, hsl(var(--primary)) 0%, rgba(139,105,20,0) 70%)" }}
+        className="absolute top-[40%] right-[-10%] w-[40%] h-[60%] rounded-full blur-[140px] opacity-[0.15] pointer-events-none z-0"
+        style={{ background: "radial-gradient(circle, hsl(var(--primary) / 0.9) 0%, transparent 70%)" }}
       ></div>
 
-      {/* Navigation / Header */}
-      <header className="w-full border-b border-border relative z-40">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex justify-between items-center">
-          <div className="font-serif text-2xl tracking-tight text-foreground">
+      {/* Fixed header — more reliable than sticky in embedded browsers */}
+      <header className="fixed top-0 left-0 right-0 z-[60] w-full border-b border-border bg-background/90 backdrop-blur-md shadow-sm">
+        <div className="max-w-7xl mx-auto px-6 py-3.5 md:py-4 flex justify-between items-center gap-4">
+          <div className="font-serif text-2xl tracking-tight text-foreground shrink-0">
             Catherine Vo<span className="text-primary">.</span>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-muted-foreground">
-            <a href="mailto:catherine@fourfoldcreative.com" className="flex items-center gap-2 hover:text-primary transition-colors">
-              <Mail size={16} /> catherine@fourfoldcreative.com
+          <div className="relative flex items-center gap-3 md:gap-5 text-sm font-medium text-muted-foreground">
+            <a
+              href="mailto:cat@catherinevo.com"
+              className={`hidden lg:flex items-center gap-2 hover:text-primary transition-opacity duration-300 ${
+                showHeaderCta ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
+            >
+              <Mail size={16} /> cat@catherinevo.com
             </a>
-            <span className="flex items-center gap-2">
+            <span
+              className={`hidden md:flex items-center gap-2 transition-opacity duration-300 ${
+                showHeaderCta ? "opacity-0" : "opacity-100"
+              }`}
+            >
               <MapPin size={16} /> Austin, TX
             </span>
+            <a
+              href={INTRO_MAILTO}
+              aria-hidden={!showHeaderCta}
+              tabIndex={showHeaderCta ? 0 : -1}
+              className={`cta-glow inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium text-primary-foreground transition-all duration-300 ${
+                showHeaderCta
+                  ? "opacity-100 translate-y-0"
+                  : "opacity-0 translate-y-1 pointer-events-none"
+              }`}
+            >
+              <span className="relative z-[1] inline-flex items-center gap-1.5">
+                Book Intro
+                <ArrowRight size={14} />
+              </span>
+            </a>
           </div>
         </div>
       </header>
 
+      {/* Offset for fixed header */}
+      <div className="h-[4.25rem] md:h-[4.5rem]" aria-hidden />
+
       {/* Hero Section */}
-      <section className="relative w-full px-6 pt-20 pb-24 md:pt-32 md:pb-32 overflow-hidden">
+      <section className="relative z-10 w-full px-6 pt-16 pb-24 md:pt-28 md:pb-32">
         <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-20">
           
           <motion.div 
@@ -145,28 +205,29 @@ export default function Home() {
             </motion.div>
             
             <motion.h1 variants={fadeUp} className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6 text-foreground">
-              I help founders get out of the weeds —{" "}
-              <span className="italic text-primary">and get their life back a little.</span>
+              Out of the weeds —{" "}
+              <span className="italic text-primary">with room to lead again.</span>
             </motion.h1>
             
             <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl text-muted-foreground">
-              Fractional Chief of Staff for companies of about 10–500 — tech, education, nonprofits, and other mission-driven orgs ready to grow to the next level. I work best with leadership teams that can actually let go. Roughly 5–15 hours a week: cadence, hard rooms, and handoffs — so founders can breathe again without the operation stalling.
+              Fractional Chief of Staff for companies of about 15–150 — tech, education, nonprofits, and other mission-driven orgs ready to grow to the next level. I work best with leadership teams that can actually let go. Roughly 5–15 hours a week: cadence, hard rooms, and handoffs — so founders can breathe again without the operation stalling.
             </motion.p>
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <a 
-                href="mailto:catherine@fourfoldcreative.com?subject=Intro%20call"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground"
-                style={{ boxShadow: "0 10px 25px -5px rgba(139,105,20,0.3)" }}
+                href={INTRO_MAILTO}
+                className="cta-glow w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 text-primary-foreground"
               >
-                Book a 30-minute intro
-                <ArrowRight size={18} />
+                <span className="relative z-[1] inline-flex items-center gap-2">
+                  Book A 30-Minute Intro
+                  <ArrowRight size={18} />
+                </span>
               </a>
               <a 
                 href="#work"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-all hover:bg-foreground/5 border border-foreground/20 text-foreground flex items-center justify-center"
               >
-                See selected work
+                See Selected Work
               </a>
             </motion.div>
           </motion.div>
@@ -203,24 +264,24 @@ export default function Home() {
           >
             <motion.div variants={fadeUp} className="flex flex-col items-center text-center px-4">
               <span className="font-serif text-4xl md:text-5xl mb-2 text-primary">$5M</span>
-              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Reduced shrink</span>
+              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Reduced Shrink</span>
               <span className="text-xs mt-1 text-muted-foreground/70">Retail</span>
             </motion.div>
             <motion.div variants={fadeUp} className="flex flex-col items-center text-center px-4">
               <span className="font-serif text-4xl md:text-5xl mb-2 text-secondary">67%</span>
-              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Unnecessary backlog cut</span>
-              <span className="text-xs mt-1 text-muted-foreground/70">Social platform</span>
+              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Unnecessary Backlog Cut</span>
+              <span className="text-xs mt-1 text-muted-foreground/70">Social Platform</span>
             </motion.div>
             <motion.div variants={fadeUp} className="flex flex-col items-center text-center px-4">
               <span className="font-serif text-3xl md:text-4xl mb-2 flex items-center gap-2 text-primary">
                 14d <ArrowRight size={24} className="opacity-50" /> 2m
               </span>
-              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Offboarding time</span>
+              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Offboarding Time</span>
               <span className="text-xs mt-1 text-muted-foreground/70">Insurance</span>
             </motion.div>
             <motion.div variants={fadeUp} className="flex flex-col items-center text-center px-4">
               <span className="font-serif text-4xl md:text-5xl mb-2 text-secondary">10M+</span>
-              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Manual labels automated</span>
+              <span className="text-sm font-medium uppercase tracking-wider text-muted-foreground">Manual Labels Automated</span>
               <span className="text-xs mt-1 text-muted-foreground/70">Retail</span>
             </motion.div>
           </motion.div>
@@ -259,7 +320,7 @@ export default function Home() {
               I've sat in the Integrator seat with a past client (EOS-informed, not certified), facilitated vision and strategy work for H-E-B's Quality Assurance and Food Safety teams, and spent 15 years in tech and creative work (Columbia CS, NYU). Fifteen years in engineering means I can sit with product, eng, and ops without getting snowed — I know when “it's complex” is a real constraint, and when it's a stall.
             </motion.p>
             <motion.p variants={fadeUp}>
-              Hire me when you have a real leadership team — not a one-person shop that can't let go — and you need someone for ~5–15 hours a week to own cadence, run strategy rooms, or steady a messy transition. I put rhythms and systems in place so founders get real relief: space to think and lead without everything grinding to a halt.
+              Hire me when your company is roughly 15–150 people, you have a real leadership team — not a one-person shop that can't let go — and you need someone for ~5–15 hours a week to own cadence, run strategy rooms, or steady a messy transition. I put rhythms and systems in place so founders get real relief: space to think and lead without everything grinding to a halt.
             </motion.p>
           </motion.div>
         </div>
@@ -277,7 +338,7 @@ export default function Home() {
             variants={staggerContainer}
           >
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
-              How I work
+              How I Work
             </motion.h2>
             <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
               Three equal lanes: cadence, facilitation, and systems. Tech is a lever — not the whole story.
@@ -297,16 +358,16 @@ export default function Home() {
                 <Layers size={24} strokeWidth={1.5} />
               </div>
               <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Cadence & ownership
+                Cadence & Ownership
               </h3>
               <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Who owns what, every week
+                Who Owns What, Every Week
               </h4>
               <p className="mb-8 flex-grow text-muted-foreground">
                 Visionary/Integrator pairing, simple scorecards, and a rhythm the company can keep. I've done this in the Integrator seat — EOS-informed, not a certified Implementer — so founders get relief from being the bottleneck. And because I've shipped as an engineer, I can push back when delivery stories don't add up and help the team get to a clear plan instead of another vague status update.
               </p>
               <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof of impact</div>
+                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
                 <p className="text-sm text-foreground">
                   Built and mentored delivery teams into structured product groups — including H-E-B Digital's Swoon Award for Innovation and the Because People Matter Award.
                 </p>
@@ -319,16 +380,16 @@ export default function Home() {
                 <Users size={24} strokeWidth={1.5} />
               </div>
               <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Meetings that decide
+                Meetings That Decide
               </h3>
               <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Get the room unstuck
+                Get The Room Unstuck
               </h4>
               <p className="mb-8 flex-grow text-muted-foreground">
                 Vision and strategy workshops, hard cross-functional conversations, and transitions that need a steady facilitator — not another slide deck.
               </p>
               <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof of impact</div>
+                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
                 <p className="text-sm text-foreground">
                   Facilitated vision and strategy workshops with H-E-B Quality Assurance and Food Safety. Backed by ICA Technology of Participation (ToP) facilitation training (July 2026).
                 </p>
@@ -341,16 +402,16 @@ export default function Home() {
                 <Settings size={24} strokeWidth={1.5} />
               </div>
               <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Tools & workflows
+                Tools & Workflows
               </h3>
               <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Stop the busywork
+                Stop The Busywork
               </h4>
               <p className="mb-8 flex-grow text-muted-foreground">
                 When the stack is the bottleneck, I audit, connect, and automate — so information moves and founders aren't buried in manual work. That includes practical builds, not just strategy decks.
               </p>
               <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof of impact</div>
+                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
                 <p className="text-sm text-foreground">
                   Designed and implemented custom financial dashboards in Google Sheets that informed founder revenue strategy. Also cut enterprise processing from 14 days to 2 minutes, and stopped about $1M in redundant software spend through clearer system ownership.
                 </p>
@@ -371,7 +432,7 @@ export default function Home() {
             variants={staggerContainer}
           >
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
-              First 90 days
+              First 90 Days
             </motion.h2>
             <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
               What you can expect when we work together — clear enough to hold me to it.
@@ -411,7 +472,7 @@ export default function Home() {
             variants={staggerContainer}
           >
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
-              Selected work
+              Selected Work
             </motion.h2>
             <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
               Short proofs — not a full portfolio. Studio case studies live at{" "}
@@ -434,34 +495,41 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
           >
-            {selectedWork.map((item) => (
+            {selectedWork.map((item) => {
+              const Icon = item.icon;
+              return (
               <motion.div
                 key={item.title}
                 variants={fadeUp}
-                className="flex flex-col gap-4 p-8 md:p-10 rounded-2xl bg-card border border-border shadow-sm"
+                className="flex flex-col rounded-2xl bg-card border border-border shadow-sm overflow-hidden"
               >
-                <span className="text-xs font-bold uppercase tracking-wider text-secondary">
-                  {item.label}
-                </span>
-                <h3 className="font-serif text-2xl text-foreground leading-snug">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground flex-grow leading-relaxed">
-                  {item.body}
-                </p>
-                {"href" in item && item.href ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:opacity-80 pt-2"
-                  >
-                    {item.linkLabel}
-                    <ExternalLink size={14} />
-                  </a>
-                ) : null}
+                <div className="relative px-8 pt-8 pb-6 bg-primary/5 border-b border-border">
+                  <div className="flex items-start justify-between gap-4 mb-6">
+                    <span className="inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary text-primary-foreground">
+                      <Icon size={22} strokeWidth={1.5} />
+                    </span>
+                    <span className="text-xs font-bold uppercase tracking-wider text-secondary pt-1">
+                      {item.label}
+                    </span>
+                  </div>
+                  <p className="font-serif text-3xl md:text-4xl text-primary leading-none mb-2">
+                    {item.outcome}
+                  </p>
+                  <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+                    {item.outcomeNote}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 p-8 flex-grow">
+                  <h3 className="font-serif text-xl text-foreground leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed text-[15px]">
+                    {item.body}
+                  </p>
+                </div>
               </motion.div>
-            ))}
+              );
+            })}
           </motion.div>
         </div>
       </section>
@@ -476,10 +544,10 @@ export default function Home() {
           variants={staggerContainer}
         >
           <motion.h2 variants={fadeUp} className="font-serif text-3xl md:text-4xl mb-6 text-foreground">
-            What I take on
+            What I Take On
           </motion.h2>
           <motion.p variants={fadeUp} className="text-lg text-muted-foreground">
-            Facilitation, operating rhythm, and practical systems — for companies roughly 10–500, across industries.
+            Facilitation, operating rhythm, and practical systems — for companies roughly 15–150, across industries.
           </motion.p>
         </motion.div>
         
@@ -517,7 +585,7 @@ export default function Home() {
           >
             <motion.div variants={fadeUp} className="flex items-center gap-3 mb-4 text-secondary">
               <TerminalSquare size={20} />
-              <h3 className="font-bold uppercase tracking-wider text-sm">Tools I use often</h3>
+              <h3 className="font-bold uppercase tracking-wider text-sm">Tools I Use Often</h3>
             </motion.div>
             <motion.p variants={fadeUp} className="text-sm text-muted-foreground mb-6 max-w-lg text-center">
               A sampling — not a shopping list. Happy to meet you in whatever stack you already have.
@@ -554,7 +622,7 @@ export default function Home() {
           </motion.div>
           
           <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl lg:text-6xl mb-8 text-foreground">
-            Ready to stop firefighting?
+            Ready To Stop Firefighting?
           </motion.h2>
           
           <motion.p variants={fadeUp} className="text-xl mb-12 max-w-2xl text-muted-foreground">
@@ -563,11 +631,13 @@ export default function Home() {
           
           <motion.div variants={fadeUp}>
             <a 
-              href="mailto:catherine@fourfoldcreative.com?subject=Intro%20call"
-              className="px-10 py-5 rounded-xl font-medium text-lg transition-all hover:scale-[1.02] active:scale-[0.98] shadow-xl mb-16 flex items-center gap-3 bg-primary hover:bg-primary/90 text-primary-foreground"
+              href={INTRO_MAILTO}
+              className="cta-glow px-10 py-5 rounded-xl font-medium text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] mb-16 flex items-center gap-3 text-primary-foreground"
             >
-              Start the conversation
-              <ArrowRight size={20} />
+              <span className="relative z-[1] inline-flex items-center gap-3">
+                Start The Conversation
+                <ArrowRight size={20} />
+              </span>
             </a>
           </motion.div>
           
@@ -581,8 +651,8 @@ export default function Home() {
             
             <div className="flex flex-col items-center gap-1">
               <span className="font-bold text-sm tracking-wider uppercase mb-1 text-foreground">Direct</span>
-              <a href="mailto:catherine@fourfoldcreative.com" className="hover:underline decoration-primary underline-offset-4">
-                catherine@fourfoldcreative.com
+              <a href="mailto:cat@catherinevo.com" className="hover:underline decoration-primary underline-offset-4">
+                cat@catherinevo.com
               </a>
               <a href="tel:5129097536" className="hover:underline decoration-primary underline-offset-4">
                 512-909-7536
