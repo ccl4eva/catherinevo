@@ -1,0 +1,27 @@
+kind = "web"
+previewPath = "/"
+title = "Catherine Vo — Fractional Chief of Staff"
+version = "1.0.0"
+id = "artifacts/catherine-vo"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24134
+
+[services.development]
+run = "pnpm --filter @workspace/catherine-vo run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/catherine-vo", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/catherine-vo/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24134"
+BASE_PATH = "/"

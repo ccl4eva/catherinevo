@@ -1,0 +1,58 @@
+CATHERINE VO — PERSONAL BRAND & SITE SPECIFICATION (catherinevo.com)
+Core Identity: Catherine Vo | Fractional Chief of Staff & Integrator
+
+Core Promise: I bridge technical architecture with human alignment, translating visionary ideas into disciplined, repeatable execution.
+
+1. The Design Palette: "Warm Executive"
+Canvas Background (Soft Linen): #F7F5F0 — Warm, editorial, unhurried background replacing sterile white.
+
+Primary Text & Headers (Deep Carbon): #1C1E21 — High-readability, sharp authority.
+
+Containers & Cards (Warm Stone): #EAE6DF — Subtle depth for service blocks and proof cards.
+
+Primary Brand Accent (Antique Clay / Terracotta): #A85A32 — Warm human element for main CTAs ([ Book an Operational Audit ]).
+
+Systems Accent (Deep Slate Sage): #3D4F58 — Technical/operational rigor for tech badges and metrics.
+
+2. Homepage Architecture & Copy (catherinevo.com)
+Section A: The Hero (Above the Fold)
+Sub-badge / Tagline: Fractional Chief of Staff & Integrator
+
+Main Headline: > The operational engine behind visionary founders.
+
+Sub-headline: > I step into growing tech startups and modern SMBs as your Fractional Chief of Staff and Integrator. I eliminate operational bottlenecks, unify your tech stack, and establish the execution rhythm your team needs to scale effortlessly.
+
+Primary CTAs: > [ Book an Operational Audit ]  [ View My Experience ]
+
+Section B: The Integrator & CoS Framework (What I Do)
+Positioning your role directly through the lens of the Visionary-Integrator dynamic:
+
+1. System Architecture & Process Lift (The Technical Engine)
+
+What it means: Founders shouldn’t be buried in manual workflows. I audit, connect, and automate your tool stack so information flows smoothly across teams.
+
+Proof Point: Slashed enterprise processing times from 14 days down to 2 minutes and prevented $1M in redundant software licensing expenditures through rigorous system governance.
+
+2. Execution Rhythm & Scorecards (The Accountability Cadence)
+
+What it means: Translating high-level company goals into clear, cross-functional deliverables, quarterly scorecards, and sprint-ready workflows.
+
+Proof Point: Built and mentored technical delivery teams into structured product divisions, earning recognition like H-E-B Digital's "Swoon Award for Innovation" and the "Because People Matter" Award.
+
+3. Human Alignment & Group Dynamics (The Facilitation Anchor)
+
+What it means: Bringing calm structure and psychological safety into high-stakes rooms. I resolve cross-functional friction and guide teams through complex organizational transitions.
+
+Credential Highlight: Backed by a 15-year technical foundation (Columbia Computer Science) paired with advanced professional frameworks, including completing the ICA Technology of Participation (ToP) Facilitation Foundations Training (July 2026) to master structured group consensus and participatory leadership.
+
+Section C: The Personal Bio / About Block
+"Logical systems and human space are not opposing forces—they are the foundation of true execution."
+
+Most organizations don’t struggle because they lack vision; they struggle because their operational infrastructure and human alignment are out of sync. With a polymathic background spanning computer science (Columbia B.A.), creative direction (NYU M.A.), and professional facilitation, I build the invisible scaffolding that makes scale feel effortless.
+
+Whether you need an Integrator to bring accountability to your engineering and product cadence, or an operational partner to navigate a complex company transition, I bring the technical depth to fix your stack and the emotional intelligence to unite your team.
+
+Section D: Technical Fluency & Core Competencies Bar
+Technical Stack: Salesforce, ServiceNow, Zapier, Power BI, Tableau, SQL, Atlassian Suite, Asana, Smartsheet.
+
+Integrator & CoS Scope: Visionary-Integrator Partnership, Scorecard Tracking, Change Management, M&A Onboarding, Cross-Functional Alignment, Pipeline Governance.
