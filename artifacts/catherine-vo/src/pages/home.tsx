@@ -374,7 +374,7 @@ export default function Home() {
         <div className="absolute inset-0 opacity-40 bg-card"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
-            className="mb-16 md:mb-20 flex flex-col md:flex-row gap-6 items-end justify-between"
+            className="mb-16 md:mb-20 flex flex-col gap-4 max-w-3xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -383,7 +383,7 @@ export default function Home() {
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
               How I Work
             </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-xl text-lg text-muted-foreground">
+            <motion.p variants={fadeUp} className="text-lg text-muted-foreground leading-relaxed">
               A disciplined, cross-functional rhythm designed to take you out of the tactical bottleneck and put you back in the driver's seat.
             </motion.p>
           </motion.div>
@@ -443,7 +443,7 @@ export default function Home() {
       <section className="w-full py-24 px-6 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="mb-16 md:mb-20 flex flex-col md:flex-row gap-6 items-end justify-between"
+            className="mb-16 md:mb-20 flex flex-col gap-4 max-w-3xl"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -452,8 +452,8 @@ export default function Home() {
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
               First 90 Days
             </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
-              What you can expect when we work together — clear enough to hold me to it.
+            <motion.p variants={fadeUp} className="text-lg text-muted-foreground leading-relaxed">
+              What you can expect when we work together.
             </motion.p>
           </motion.div>
 
@@ -483,7 +483,7 @@ export default function Home() {
       <section id="work" className="w-full py-24 md:py-32 px-6 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <motion.div 
-            className="mb-16 md:mb-20 flex flex-col md:flex-row gap-6 items-end justify-between"
+            className="mb-16 md:mb-20"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -492,18 +492,6 @@ export default function Home() {
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
               Selected Work
             </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
-              Short proofs — not a full portfolio. Studio case studies live at{" "}
-              <a
-                href={FOURFOLD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline underline-offset-4 hover:opacity-80"
-              >
-                Fourfold Creative
-              </a>
-              .
-            </motion.p>
           </motion.div>
 
           <motion.div 
