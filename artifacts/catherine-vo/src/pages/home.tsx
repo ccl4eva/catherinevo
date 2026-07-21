@@ -233,11 +233,10 @@ export default function Home() {
       <div className="h-[4.25rem] md:h-[4.5rem]" aria-hidden />
 
       {/* Hero Section */}
-      <section className="relative z-10 w-full px-6 pt-16 pb-24 md:pt-28 md:pb-32">
-        <div className="max-w-7xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-16 lg:gap-20">
-          
+      <section className="relative z-10 w-full px-6 pt-20 pb-24 md:pt-32 md:pb-36">
+        <div className="max-w-4xl mx-auto">
           <motion.div 
-            className="w-full lg:w-3/5 z-10 flex flex-col items-start"
+            className="z-10 flex flex-col items-start"
             initial="hidden"
             animate="visible"
             variants={staggerContainer}
@@ -256,11 +255,10 @@ export default function Home() {
               <span className="italic text-primary">Clarity where you scale.</span>
             </motion.h1>
             
-            <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-5 max-w-2xl text-muted-foreground">
-            Hi,I’m Catherine Vo. I step into your active ecosystem to design the systems and cadence that replace constant reaction with structured execution—so your business scales without burning out your people.
+            <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl text-muted-foreground">
+              Hi, I'm Catherine Vo. I step into your active ecosystem to design the systems and cadence that replace constant reaction with structured execution—so your business scales without burning out your people.
             </motion.p>
 
-          
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
               <a 
                 href={INTRO_MAILTO}
@@ -279,24 +277,6 @@ export default function Home() {
               </a>
             </motion.div>
           </motion.div>
-          
-          <motion.div 
-            className="w-full lg:w-2/5 relative z-10"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-          >
-            <div className="relative w-full aspect-[4/5] max-w-md mx-auto lg:ml-auto">
-              <div className="absolute inset-0 rounded-2xl transform translate-x-4 translate-y-4 bg-primary/20"></div>
-              <div className="absolute inset-0 rounded-2xl transform -translate-x-2 -translate-y-2 border border-secondary"></div>
-              <img 
-                src="/images/catherine-headshot.jpg" 
-                alt="Catherine Vo"
-                className="absolute inset-0 w-full h-full object-cover rounded-2xl shadow-xl z-10 border-4 border-background"
-              />
-            </div>
-          </motion.div>
-          
         </div>
       </section>
 
@@ -338,42 +318,72 @@ export default function Home() {
 
       {/* About Me */}
       <section id="experience" className="w-full py-24 md:py-32 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-24 items-start">
-          <motion.div
-            className="w-full lg:w-1/2 lg:sticky lg:top-28"
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+        <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-24">
+          {/* Statement quote — mark in document flow so it never crowds the text */}
+          <motion.blockquote
+            className="relative w-full rounded-2xl bg-card/80 px-8 py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 overflow-hidden"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.7 }}
           >
-            <div className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight relative z-10 text-foreground">
-              <div className="absolute -top-10 -left-6 text-9xl opacity-20 -z-10 font-serif text-secondary">
-                &ldquo;
-              </div>
+            <div
+              className="mb-4 md:mb-6 font-serif italic text-[7.5rem] md:text-[10rem] lg:text-[12rem] leading-[0.7] text-secondary select-none"
+              aria-hidden
+            >
+              &ldquo;
+            </div>
+            <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-tight text-foreground max-w-4xl">
               There is an art to taking what is already in your environment, processing the challenge, and creating something new from it.
+            </p>
+          </motion.blockquote>
+
+          {/* Photo | label + bio */}
+          <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-14 lg:gap-20">
+            <motion.div
+              className="relative w-full md:w-[42%] max-w-md mx-auto md:mx-0 shrink-0 aspect-[4/5]"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+            >
+              {/* Curved offset layers + gold accent frame */}
+              <div className="absolute inset-0 rounded-2xl translate-x-3 translate-y-3 bg-secondary/30" aria-hidden />
+              <div className="absolute inset-0 rounded-2xl -translate-x-2 -translate-y-2 border-2 border-secondary" aria-hidden />
+              <img
+                src="/images/catherine-headshot.jpg"
+                alt="Catherine Vo"
+                className="absolute inset-0 z-10 w-full h-full object-cover rounded-2xl shadow-xl border-[3px] border-secondary"
+              />
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col min-w-0 md:flex-1"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.h2
+                variants={fadeUp}
+                className="text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-8 md:mb-10"
+              >
+                About Me
+              </motion.h2>
+
+              <div className="flex flex-col gap-6 md:gap-7 text-base md:text-lg text-muted-foreground leading-relaxed">
+                <motion.p variants={fadeUp}>
+                  I spent my early foundation bridging two distinct worlds: computer science at Columbia University and fine art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations like H-E-B.
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  In business operations, that means I don't walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, my goal is simple: to build the structural frame so you can stop reacting and get back to leading your business.
+                </motion.p>
               </div>
-          </motion.div>
-
-          <motion.div
-            className="w-full lg:w-1/2 flex flex-col gap-6 text-lg text-muted-foreground leading-relaxed"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
-              About Me
-            </motion.h2>
-            <motion.p variants={fadeUp}>
-            I spent my early foundation bridging two distinct worlds: computer science at Columbia University and fine art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
-
-            <motion.p variants={fadeUp}>
-            Over the last 15+ years, I’ve applied that mindset to software engineering, product management, and high-stakes enterprise operations like H-E-B. </motion.p>
-            </motion.p>
-            <motion.p variants={fadeUp}>
-            In business operations, that means I don’t walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, my goal is simple: to build the structural frame so you can stop reacting and get back to leading your business.  
-            </motion.p>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -445,17 +455,18 @@ export default function Home() {
             })}
           </motion.div>
 
-          <motion.div
-            className="mt-20 md:mt-24 max-w-3xl flex flex-col gap-6"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-          >
-            <motion.h3 variants={fadeUp} className="font-serif text-3xl md:text-4xl text-foreground">
+          <div className="mt-28 md:mt-40 pt-16 md:pt-24 border-t border-border/60 max-w-3xl">
+            <motion.h3
+              className="block font-serif text-3xl md:text-4xl text-foreground"
+              style={{ paddingBottom: 16 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
               Who I Partner With
             </motion.h3>
-            <motion.ul variants={fadeUp} className="flex flex-col gap-5 list-none pl-0 text-lg text-muted-foreground leading-relaxed">
+            <ul className="flex flex-col gap-8 md:gap-10 list-none m-0 p-0 text-lg text-muted-foreground leading-relaxed">
               <li>
                 <span className="font-medium text-foreground">You have a core leadership team:</span>{" "}
                 You aren't operating as a solo founder; you have leaders in place who are ready to share the weight of execution.
@@ -468,8 +479,8 @@ export default function Home() {
                 <span className="font-medium text-foreground">You want long-term relief:</span>{" "}
                 My goal is to build simple, sustainable rhythms and systems so you get your time back—giving you the space to think and lead without the business grinding to a halt.
               </li>
-            </motion.ul>
-          </motion.div>
+            </ul>
+          </div>
         </div>
       </section>      <section className="w-full py-24 px-6 border-b border-border">
         <div className="max-w-7xl mx-auto">
