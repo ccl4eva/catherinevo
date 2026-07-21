@@ -199,18 +199,26 @@ export default function Home() {
             animate="visible"
             variants={staggerContainer}
           >
-            <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium mb-8 bg-card text-primary shadow-sm border border-border">
-              <span className="w-2 h-2 rounded-full bg-secondary"></span>
-              Fractional Chief of Staff & Integrator
+            <motion.div variants={fadeUp} className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-sm font-medium mb-8 bg-card text-foreground shadow-sm border border-border">
+              <span className="relative flex h-2.5 w-2.5 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              </span>
+              Accepting Q3/Q4 Fractional Inquiries (5–15 hrs/wk)
             </motion.div>
             
             <motion.h1 variants={fadeUp} className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6 text-foreground">
-              Out of the weeds —{" "}
-              <span className="italic text-primary">with room to lead again.</span>
+            Structure where you need it. 
+              <br />
+              <span className="italic text-primary">Clarity where you scale.</span>
             </motion.h1>
             
-            <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl text-muted-foreground">
-              Fractional Chief of Staff for companies of about 15–150 — tech, education, nonprofits, and other mission-driven orgs ready to grow to the next level. I work best with leadership teams that can actually let go. Roughly 5–15 hours a week: cadence, hard rooms, and handoffs — so founders can breathe again without the operation stalling.
+            <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-5 max-w-2xl text-muted-foreground">
+              Fractional Chief of Staff & Integrator for growing organizations (15–150 headcount)—tech, education, and mission-driven scale-ups. I partner with founders to bring operational cadence, navigate hard rooms, and clean up handoffs.
+            </motion.p>
+
+            <motion.p variants={fadeUp} className="text-sm md:text-base leading-relaxed mb-10 max-w-2xl text-muted-foreground/90 border-l-2 border-secondary pl-4">
+              Roughly 5–15 hours a week: structured execution so founders can breathe and the operation scales without stalling.
             </motion.p>
             
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
