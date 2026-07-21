@@ -48,7 +48,7 @@ const howIWork: {
     title: "Discover & Align",
     subtitle: "Information Gathering",
     body: "I don't guess - I listen and map. I step into your ecosystem to understanding existing tech stacks, analyze workflows, and conduct structured alignment sessions with key stakeholders, engineering leads, and cross-functional teams.",
-    tools: "ICA Technology of Participation (ToP) facilitation, executive vision workshops, stakeholder interviews.",
+    tools: "Executive vision workshops, stakeholder interviews, Figma mind mapping.",
     icon: Search,
   },
   {
@@ -91,8 +91,6 @@ const tools = [
 ] as const;
 
 const scopeItems = [
-  "Companies Of 15–150",
-  "5–15 Hours / Week",
   "Education, Nonprofit & Social Impact",
   "Tech And Non-Tech",
   "Founder + Integrator Pairing",
@@ -455,7 +453,10 @@ export default function Home() {
             })}
           </motion.div>
 
-          <div className="mt-28 md:mt-40 pt-16 md:pt-24 border-t border-border/60 max-w-3xl">
+          {/* Hard spacer — cards → Who I Partner With */}
+          <div style={{ height: 120 }} aria-hidden />
+
+          <div className="max-w-3xl">
             <motion.h3
               className="block font-serif text-3xl md:text-4xl text-foreground"
               style={{ paddingBottom: 16 }}
