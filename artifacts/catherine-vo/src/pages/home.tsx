@@ -3,13 +3,14 @@ import {
   MapPin, 
   Mail, 
   Layers,
-  Settings,
-  Users,
   TerminalSquare,
   Workflow,
   ExternalLink,
   Presentation,
   LineChart,
+  Search,
+  PenLine,
+  Hammer,
   type LucideIcon
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
@@ -33,6 +34,40 @@ const staggerContainer: Variants = {
 };
 
 const FOURFOLD_URL = "https://papaya-wisp-6893ae.netlify.app/";
+
+const howIWork: {
+  step: string;
+  title: string;
+  subtitle: string;
+  body: string;
+  tools: string;
+  icon: LucideIcon;
+}[] = [
+  {
+    step: "01",
+    title: "Discover & Align",
+    subtitle: "Information Gathering",
+    body: "I don't guess—I listen and map. I step into your ecosystem to audit existing tech stacks, analyze workflows, and conduct structured alignment sessions with key stakeholders, engineering leads, and cross-functional teams.",
+    tools: "ICA Technology of Participation (ToP) facilitation, executive vision workshops, stakeholder interviews.",
+    icon: Search,
+  },
+  {
+    step: "02",
+    title: "Diagnose & Design",
+    subtitle: "Gaps, Strategy, & Architecture",
+    body: "Once the landscape is clear, I identify the critical bottlenecks and build the roadmap. Whether it's structuring a sound financial dashboard, implementing EOS® principles via Ninety.io, or redesigning a broken operational workflow, I design the blueprint with your input before we build.",
+    tools: "EOS® scorecards/Rocks, prioritization frameworks, system architecture design.",
+    icon: PenLine,
+  },
+  {
+    step: "03",
+    title: "Execute & Embed",
+    subtitle: "Hands-On Implementation",
+    body: "I don't hand you a slide deck and walk away. I roll up my sleeves and build the systems, automate the manual work, and drive cross-functional execution. I build documentation and playbooks so the changes actually stick long-term.",
+    tools: "Technical integrations (Salesforce, Power BI, custom sheets/automations), run-of-show playbooks, team coaching.",
+    icon: Hammer,
+  },
+];
 
 const tools = [
   "Google Sheets",
@@ -208,13 +243,13 @@ export default function Home() {
             </motion.div>
             
             <motion.h1 variants={fadeUp} className="font-serif text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6 text-foreground">
-            Structure where you need it. 
+              Structure where you need it.
               <br />
               <span className="italic text-primary">Clarity where you scale.</span>
             </motion.h1>
             
             <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-5 max-w-2xl text-muted-foreground">
-              Fractional Chief of Staff & Integrator for growing organizations (15–150 headcount)—tech, education, and mission-driven scale-ups. I partner with founders to bring operational cadence, navigate hard rooms, and clean up handoffs.
+              I bridge executive vision with operational rigor—building the dashboards, alignment mechanisms, and systems that keep your business running effortlessly.
             </motion.p>
 
             <motion.p variants={fadeUp} className="text-sm md:text-base leading-relaxed mb-10 max-w-2xl text-muted-foreground/90 border-l-2 border-secondary pl-4">
@@ -334,12 +369,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* How I work — cadence & facilitation first, tools third */}
+      {/* How I Work */}
       <section className="w-full py-24 px-6 relative">
         <div className="absolute inset-0 opacity-40 bg-card"></div>
         <div className="max-w-7xl mx-auto relative z-10">
           <motion.div 
-            className="mb-16 md:mb-24 flex flex-col md:flex-row gap-6 items-end justify-between"
+            className="mb-16 md:mb-20 flex flex-col md:flex-row gap-6 items-end justify-between"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -348,8 +383,8 @@ export default function Home() {
             <motion.h2 variants={fadeUp} className="font-serif text-4xl md:text-5xl text-foreground">
               How I Work
             </motion.h2>
-            <motion.p variants={fadeUp} className="max-w-md text-lg text-muted-foreground">
-              Three equal lanes: cadence, facilitation, and systems. Tech is a lever — not the whole story.
+            <motion.p variants={fadeUp} className="max-w-xl text-lg text-muted-foreground">
+              A disciplined, cross-functional rhythm designed to take you out of the tactical bottleneck and put you back in the driver's seat.
             </motion.p>
           </motion.div>
           
@@ -360,71 +395,46 @@ export default function Home() {
             viewport={{ once: true, margin: "-50px" }}
             variants={staggerContainer}
           >
-            <motion.div variants={fadeUp} className="p-8 md:p-10 rounded-2xl flex flex-col h-full relative overflow-hidden group bg-card shadow-sm border border-border">
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full transition-transform duration-500 group-hover:scale-110 bg-background opacity-50"></div>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-8 relative z-10 bg-primary text-primary-foreground">
-                <Layers size={24} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Cadence & Ownership
-              </h3>
-              <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Who Owns What, Every Week
-              </h4>
-              <p className="mb-8 flex-grow text-muted-foreground">
-                Visionary/Integrator pairing, simple scorecards, and a rhythm the company can keep. I've done this in the Integrator seat — EOS-informed, not a certified Implementer — so founders get relief from being the bottleneck. And because I've shipped as an engineer, I can push back when delivery stories don't add up and help the team get to a clear plan instead of another vague status update.
-              </p>
-              <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
-                <p className="text-sm text-foreground">
-                  Built and mentored delivery teams into structured product groups — including H-E-B Digital's Swoon Award for Innovation and the Because People Matter Award.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="p-8 md:p-10 rounded-2xl flex flex-col h-full relative overflow-hidden group bg-card shadow-sm border border-border">
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full transition-transform duration-500 group-hover:scale-110 bg-background opacity-50"></div>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-8 relative z-10 bg-primary text-primary-foreground">
-                <Users size={24} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Meetings That Decide
-              </h3>
-              <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Get The Room Unstuck
-              </h4>
-              <p className="mb-8 flex-grow text-muted-foreground">
-                Vision and strategy workshops, hard cross-functional conversations, and transitions that need a steady facilitator — not another slide deck.
-              </p>
-              <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
-                <p className="text-sm text-foreground">
-                  Facilitated vision and strategy workshops with H-E-B Quality Assurance and Food Safety. Backed by ICA Technology of Participation (ToP) facilitation training (July 2026).
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div variants={fadeUp} className="p-8 md:p-10 rounded-2xl flex flex-col h-full relative overflow-hidden group bg-card shadow-sm border border-border">
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full transition-transform duration-500 group-hover:scale-110 bg-background opacity-50"></div>
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-8 relative z-10 bg-primary text-primary-foreground">
-                <Settings size={24} strokeWidth={1.5} />
-              </div>
-              <h3 className="text-sm font-bold uppercase tracking-wider mb-3 text-primary">
-                Tools & Workflows
-              </h3>
-              <h4 className="font-serif text-2xl mb-4 text-foreground">
-                Stop The Busywork
-              </h4>
-              <p className="mb-8 flex-grow text-muted-foreground">
-                When the stack is the bottleneck, I audit, connect, and automate — so information moves and founders aren't buried in manual work. That includes practical builds, not just strategy decks.
-              </p>
-              <div className="pt-6 border-t border-muted-foreground/15">
-                <div className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">Proof Of Impact</div>
-                <p className="text-sm text-foreground">
-                  Designed and implemented custom financial dashboards in Google Sheets that informed founder revenue strategy. Also cut enterprise processing from 14 days to 2 minutes, and stopped about $1M in redundant software spend through clearer system ownership.
-                </p>
-              </div>
-            </motion.div>
+            {howIWork.map((item) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.step}
+                  variants={fadeUp}
+                  className="p-8 md:p-10 rounded-2xl flex flex-col h-full relative overflow-hidden group bg-card shadow-sm border border-border"
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full transition-transform duration-500 group-hover:scale-110 bg-background opacity-50"></div>
+                  <div className="flex items-center justify-between mb-8 relative z-10">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-primary text-primary-foreground">
+                      <Icon size={24} strokeWidth={1.5} />
+                    </div>
+                    <span className="font-serif text-3xl text-primary/30">{item.step}</span>
+                  </div>
+                  <h3 className="font-serif text-2xl mb-1 text-foreground relative z-10">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm font-bold uppercase tracking-wider mb-5 text-primary relative z-10">
+                    {item.subtitle}
+                  </p>
+                  <div className="mb-6 flex-grow relative z-10">
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">
+                      What It Looks Like
+                    </p>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {item.body}
+                    </p>
+                  </div>
+                  <div className="pt-6 border-t border-muted-foreground/15 relative z-10">
+                    <p className="text-xs font-bold uppercase tracking-wider mb-2 text-secondary">
+                      The Tools
+                    </p>
+                    <p className="text-sm text-foreground leading-relaxed">
+                      {item.tools}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
           </motion.div>
         </div>
       </section>
