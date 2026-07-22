@@ -46,7 +46,7 @@ const howIWork: {
     title: "Discover & Align",
     subtitle: "Information Gathering",
     body: "I don't guess - I listen and map. I step into your ecosystem to understanding existing tech stacks, analyze workflows, and conduct structured alignment sessions with key stakeholders, engineering leads, and cross-functional teams.",
-    tools: "Executive vision workshops, stakeholder interviews, Figma mind mapping.",
+    tools: "1:1 or focused stakeholder interviews, group consensus frameworks including Technology of Participation (ToP)",
     icon: Search,
   },
   {
@@ -111,7 +111,7 @@ const selectedWork: {
     title: "Enterprise Facilitation & Strategic Alignment",
     context: "H-E-B (Food Safety & Quality Assurance)",
     deliverable:
-      "Led a full-day executive vision workshop followed by targeted subdomain sessions to elicit leadership strategy, define core pillars, and lock down execution roadmaps.",
+      "Led a full-day executive vision workshop that resulted in a formalized, documented business strategy. Focused work sessions followed to define subdomain key results which informed the 5-year roadmap.",
     detailLabel: "The Method",
     detail:
       "Backed by intensive independent research and hours of meticulous structural prep—translating complex cross-functional needs into a focused, high-impact agenda that drove collaboration and alignment.",
@@ -121,10 +121,10 @@ const selectedWork: {
     title: "Operational Rhythm & Financial Architecture",
     context: "Sound Sight Tarot",
     deliverable:
-      "Partnered directly with the founder as a Fractional Integrator to establish a structured cadence (EOS-informed weekly/monthly/quarterly rhythm via Ninety.io) while architecting custom Google Sheets financial dashboards.",
+      "Partnered with the founder as a Fractional Integrator to establish a structured cadence (EOS-informed weekly/monthly/quarterly rhythm via Ninety.io) while architecting custom Google Sheets financial dashboards.",
     detailLabel: "The Outcome",
     detail:
-      "Combined operational alignment with clear financial modeling and projections, giving the founder baseline data to drive pricing and marketing strategy, freeing up executive capacity.",
+      "Synthesized operational challenges, growth goals, and stress points into a plan to leverage resources and reduce personal and professional burnout.",
     icon: LineChart,
   },
   {
@@ -143,12 +143,12 @@ const firstNinety = [
   {
     day: "30",
     title: "See Clearly",
-    body: "Audit of systems and processes. A prioritized list of gaps — and concrete options to fix them.",
+    body: "Audit of systems and processes. A prioritized list of gaps and and concrete options to improve them.",
   },
   {
     day: "60",
     title: "Decide The Path",
-    body: "Decisions locked on which improvements to pursue. A practical 1–2 year roadmap the leadership team can own.",
+    body: "Decisions locked on which improvements to pursue. A practical roadmap the leadership team can own.",
   },
   {
     day: "90",
@@ -719,7 +719,8 @@ export default function Home() {
           </motion.h2>
           
           <motion.p variants={fadeUp} className="text-xl mb-12 max-w-2xl text-muted-foreground leading-relaxed">
-            No sales pitches or pressure—just a direct conversation about your current operational bottlenecks, your leadership team, and how we can bring structure to the workflow so you can lead with clarity.
+            No sales pitches or pressure - just a direct conversation about your current operational bottlenecks, 
+            your leadership team, and how I can help you get back to leading your business.
           </motion.p>
           
           {/* Stable anchor so scroll works on the first click */}
