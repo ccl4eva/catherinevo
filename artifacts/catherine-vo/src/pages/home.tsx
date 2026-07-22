@@ -76,14 +76,14 @@ const tools = [
   "Salesforce",
   "HubSpot",
   "ServiceNow",
-  "Jira",
+  "Atlassian Suite",
   "Asana",
   "Slack",
   "SQL",
   "Power BI",
   "Tableau",
   "Gemini",
-  "ChatGPT",
+  "Cursor",
   "Posthog",
   "Amplitude"
 ] as const;
