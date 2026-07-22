@@ -284,7 +284,8 @@ export default function Home() {
             </motion.h1>
             
             <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl text-muted-foreground">
-              Hi, I'm <strong className="font-semibold text-foreground">Catherine Vo</strong>. I step into your active ecosystem to design the systems and cadence that replace constant reaction with structured execution—so your business scales without burning out your people.
+              Hi, I'm <strong className="font-semibold text-foreground">Catherine Vo</strong>. I step into your active ecosystem to design the systems and 
+              cadence &mdash; replacing constant reaction so your business scales without burning out your people.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -404,7 +405,9 @@ export default function Home() {
 
               <div className="flex flex-col gap-6 md:gap-7 text-base md:text-lg text-muted-foreground leading-relaxed">
                 <motion.p variants={fadeUp}>
-                  I spent my early foundation bridging two distinct worlds: Computer Science at Columbia University and Fine Art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
+                  I spent my early foundation bridging two distinct worlds: Computer Science at Columbia University and Fine Art at NYU. 
+                  That blend taught me early on that building systems and solving creative challenges require the same core discipline of taking what's n front of you, 
+                  processing the constraints, and designing a functional structure where creativity and growth results.
                 </motion.p>
                 <motion.p variants={fadeUp}>
                   Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations.
