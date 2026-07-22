@@ -109,7 +109,7 @@ const selectedWork: {
 }[] = [
   {
     title: "Enterprise Facilitation & Strategic Alignment",
-    context: "H-E-B (Quality Assurance & Food Safety)",
+    context: "H-E-B (Food Safety & Quality Assurance)",
     deliverable:
       "Led a full-day executive vision workshop followed by targeted subdomain sessions to elicit leadership strategy, define core pillars, and lock down execution roadmaps.",
     detailLabel: "The Method",
