@@ -8,6 +8,9 @@ const fieldClass =
 
 const labelClass = "block text-sm font-medium mb-2 text-muted-foreground";
 
+const FORM_ENDPOINT = "/netlify-form.html";
+const FORM_NAME = "fractional-inquiry";
+
 type FractionalInquiryFormProps = {
   idPrefix?: string;
   onSubmitted?: () => void;
@@ -25,11 +28,7 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-
-    // Required for Netlify to route the submission to the right form
-    if (!formData.get("form-name")) {
-      formData.set("form-name", "fractional-inquiry");
-    }
+    formData.set("form-name", FORM_NAME);
 
     try {
       // Local preview: Netlify Forms only work on a deployed Netlify URL
@@ -46,14 +45,16 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
         body.append(key, String(value));
       });
 
-      const response = await fetch("/", {
+      // POST to the static HTML form file (not "/") so Netlify receives it
+      // even when the SPA redirect only handles GET.
+      const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: body.toString(),
       });
 
       if (!response.ok) {
-        throw new Error("Form endpoint did not accept the submission.");
+        throw new Error(`Form endpoint returned ${response.status}`);
       }
 
       setSubmitted(true);
@@ -127,7 +128,7 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
           key="form"
           name="fractional-inquiry"
           method="POST"
-          action="/thank-you"
+          action={FORM_ENDPOINT}
           data-netlify="true"
           netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
