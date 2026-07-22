@@ -4,19 +4,18 @@ import {
   Mail, 
   TerminalSquare,
   Workflow,
-  ExternalLink,
   Presentation,
   LineChart,
   Search,
   PenLine,
   Hammer,
   Zap,
+  X,
   type LucideIcon
 } from "lucide-react";
-import { motion, type Variants } from "framer-motion";
-import { useEffect, useState } from "react";
-
-const INTRO_MAILTO = "mailto:cat@catherinevo.com?subject=Discovery%20Call";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { useEffect, useState, useCallback } from "react";
+import { FractionalInquiryForm } from "@/components/fractional-inquiry-form";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -32,8 +31,6 @@ const staggerContainer: Variants = {
     }
   }
 };
-
-const FOURFOLD_URL = "https://papaya-wisp-6893ae.netlify.app/";
 
 const howIWork: {
   step: string;
@@ -161,6 +158,24 @@ const firstNinety = [
 
 export default function Home() {
   const [showHeaderCta, setShowHeaderCta] = useState(false);
+  const [inquiryOpen, setInquiryOpen] = useState(false);
+  const [inquirySubmitted, setInquirySubmitted] = useState(false);
+
+  const openInquiry = useCallback(() => {
+    setInquiryOpen(true);
+    setInquirySubmitted(false);
+    window.setTimeout(() => {
+      document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  }, []);
+
+  const closeInquiry = useCallback(() => {
+    setInquiryOpen(false);
+    setInquirySubmitted(false);
+    if (window.location.hash === "#explore") {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -169,6 +184,13 @@ export default function Home() {
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Never auto-open from a stale hash — form only appears after a CTA click
+  useEffect(() => {
+    if (window.location.hash === "#explore") {
+      window.history.replaceState(null, "", window.location.pathname);
+    }
   }, []);
 
   return (
@@ -208,10 +230,11 @@ export default function Home() {
             >
               <MapPin size={16} /> Austin, TX
             </span>
-            <a
-              href={INTRO_MAILTO}
-              aria-hidden={!showHeaderCta}
-              tabIndex={showHeaderCta ? 0 : -1}
+            <button
+              type="button"
+              onClick={openInquiry}
+              aria-expanded={inquiryOpen}
+              aria-controls="explore"
               className={`cta-glow inline-flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium text-primary-foreground transition-all duration-300 ${
                 showHeaderCta
                   ? "opacity-100 translate-y-0"
@@ -219,10 +242,10 @@ export default function Home() {
               }`}
             >
               <span className="relative z-[1] inline-flex items-center gap-1.5">
-                Book Intro
+                Explore
                 <ArrowRight size={14} />
               </span>
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -258,15 +281,18 @@ export default function Home() {
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
-              <a 
-                href={INTRO_MAILTO}
+              <button 
+                type="button"
+                onClick={openInquiry}
+                aria-expanded={inquiryOpen}
+                aria-controls="explore"
                 className="cta-glow w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 text-primary-foreground"
               >
                 <span className="relative z-[1] inline-flex items-center gap-2">
-                  Book an Intro Conversation
+                  Explore working together
                   <ArrowRight size={18} />
                 </span>
-              </a>
+              </button>
               <a 
                 href="#work"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-all hover:bg-foreground/5 border border-foreground/20 text-foreground flex items-center justify-center"
@@ -673,46 +699,95 @@ export default function Home() {
             No sales pitches or pressure—just a direct conversation about your current operational bottlenecks, your leadership team, and how we can bring structure to the workflow so you can lead with clarity.
           </motion.p>
           
-          <motion.div variants={fadeUp}>
-            <a 
-              href={INTRO_MAILTO}
-              className="cta-glow px-10 py-5 rounded-xl font-medium text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] mb-16 flex items-center gap-3 text-primary-foreground"
-            >
-              <span className="relative z-[1] inline-flex items-center gap-3">
-                Schedule A Discovery Call
-                <ArrowRight size={20} />
-              </span>
-            </a>
-          </motion.div>
+          <AnimatePresence mode="wait">
+            {!inquiryOpen ? (
+              <motion.div
+                key="explore-cta"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.3 }}
+              >
+                <button 
+                  type="button"
+                  onClick={openInquiry}
+                  aria-expanded={false}
+                  aria-controls="explore"
+                  className="cta-glow px-10 py-5 rounded-xl font-medium text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] mb-16 inline-flex items-center gap-3 text-primary-foreground"
+                >
+                  <span className="relative z-[1] inline-flex items-center gap-3">
+                    Explore working together
+                    <ArrowRight size={20} />
+                  </span>
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="explore-panel"
+                id="explore"
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full overflow-hidden mb-16 scroll-mt-28"
+                aria-label="Inquiry form"
+              >
+                <motion.div
+                  className="mx-auto mb-8 h-px max-w-xl origin-center bg-secondary"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                  aria-hidden
+                />
+                <div className="mx-auto max-w-xl text-left">
+                  {!inquirySubmitted ? (
+                    <div className="mb-8 flex items-start justify-between gap-4">
+                      <div>
+                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
+                          Next Step
+                        </p>
+                        <h3 className="font-serif text-3xl md:text-4xl text-foreground">
+                          What's getting in the way?
+                        </h3>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={closeInquiry}
+                        className="shrink-0 mt-1 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors"
+                        aria-label="Close inquiry form"
+                      >
+                        <X size={20} />
+                      </button>
+                    </div>
+                  ) : null}
+                  <FractionalInquiryForm
+                    idPrefix="home-inquiry"
+                    onSubmitted={() => setInquirySubmitted(true)}
+                  />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
           
           <motion.div variants={fadeUp} className="w-full h-px mb-12 bg-muted-foreground/15"></motion.div>
           
           <motion.div variants={fadeUp} className="flex flex-col md:flex-row justify-between w-full gap-8 items-center text-muted-foreground">
             <div className="flex flex-col items-center md:items-start gap-1">
               <span className="font-bold text-sm tracking-wider uppercase mb-1 text-foreground">Location</span>
-              <span>Austin, TX</span>
+              <span className="inline-flex items-center gap-2.5">
+                Austin, TX
+                <span className="inline-block w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden />
+                Remote
+              </span>
             </div>
             
-            <div className="flex flex-col items-center gap-1">
+            <div className="flex flex-col items-center md:items-end gap-1">
               <span className="font-bold text-sm tracking-wider uppercase mb-1 text-foreground">Direct</span>
               <a href="mailto:cat@catherinevo.com" className="hover:underline decoration-primary underline-offset-4">
                 cat@catherinevo.com
               </a>
               <a href="tel:5129097536" className="hover:underline decoration-primary underline-offset-4">
                 512-909-7536
-              </a>
-            </div>
-            
-            <div className="flex flex-col items-center md:items-end gap-1">
-              <span className="font-bold text-sm tracking-wider uppercase mb-1 text-foreground">Studio</span>
-              <a
-                href={FOURFOLD_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:underline decoration-primary underline-offset-4 inline-flex items-center gap-1.5"
-              >
-                Fourfold Creative
-                <ExternalLink size={12} />
               </a>
             </div>
           </motion.div>

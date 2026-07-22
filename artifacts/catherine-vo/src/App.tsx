@@ -3,6 +3,8 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { PaletteToggle } from '@/components/palette-toggle';
 import NotFound from '@/pages/not-found';
+import Explore from '@/pages/explore';
+import ThankYou from '@/pages/thank-you';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import Home from '@/pages/home';
 
@@ -12,6 +14,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/explore" component={Explore} />
+      <Route path="/thank-you" component={ThankYou} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -32,6 +32,14 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- Netlify Forms: static copy so the form is detected at build time -->
+    <form name="fractional-inquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="text" name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company-size" />
+      <textarea name="bottleneck"></textarea>
+    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
