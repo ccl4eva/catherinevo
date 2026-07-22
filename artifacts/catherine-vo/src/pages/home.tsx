@@ -373,20 +373,33 @@ export default function Home() {
           {/* Photo | label + bio */}
           <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-14 lg:gap-20">
             <motion.div
-              className="relative w-full md:w-[42%] max-w-md mx-auto md:mx-0 shrink-0 aspect-[4/5]"
+              className="w-full md:w-[42%] max-w-md mx-auto md:mx-0 shrink-0"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              {/* Curved offset layers + gold accent frame */}
-              <div className="absolute inset-0 rounded-2xl translate-x-3 translate-y-3 bg-secondary/30" aria-hidden />
-              <div className="absolute inset-0 rounded-2xl -translate-x-2 -translate-y-2 border-2 border-secondary" aria-hidden />
-              <img
-                src="/images/catherine-headshot.jpg"
-                alt="Catherine Vo, fractional Chief of Staff based in Austin"
-                className="absolute inset-0 z-10 w-full h-full object-cover rounded-2xl shadow-xl border-[3px] border-secondary"
-              />
+              <div className="relative aspect-[4/5]">
+                {/* Curved offset layers + gold accent frame */}
+                <div className="absolute inset-0 rounded-2xl translate-x-3 translate-y-3 bg-secondary/30" aria-hidden />
+                <div className="absolute inset-0 rounded-2xl -translate-x-2 -translate-y-2 border-2 border-secondary" aria-hidden />
+                <img
+                  src="/images/catherine-headshot.jpg"
+                  alt="Catherine Vo, fractional Chief of Staff based in Austin"
+                  className="absolute inset-0 z-10 w-full h-full object-cover rounded-2xl shadow-xl border-[3px] border-secondary"
+                />
+              </div>
+              <p className="mt-4 text-xs text-muted-foreground tracking-wide">
+                Photo by{" "}
+                <a
+                  href="https://stellalumina.myportfolio.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 decoration-border hover:text-primary hover:decoration-primary transition-colors"
+                >
+                  Stella Lumina
+                </a>
+              </p>
             </motion.div>
 
             <motion.div
