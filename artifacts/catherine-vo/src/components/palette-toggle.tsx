@@ -1,20 +1,50 @@
 import { useEffect, useState } from 'react';
-import { applyPalette, getStoredPalette, palettes, type PaletteId } from '@/lib/palette';
+import {
+  applyPalette,
+  getActivePalette,
+  isPalettePreviewEnabled,
+  palettes,
+  setPalettePreviewEnabled,
+  syncPaletteFromUrl,
+  type PaletteId,
+} from '@/lib/palette';
 
-/** Temporary decision UI — hide or remove once a palette is chosen. */
+/**
+ * Private palette preview — only visible after unlocking with ?palettes=1
+ * Lock again with ?palettes=0 (resets visitors in this browser to Warm Gold).
+ */
 export function PaletteToggle() {
+  const [enabled, setEnabled] = useState(false);
   const [active, setActive] = useState<PaletteId>('warm-gold');
   const [open, setOpen] = useState(true);
 
   useEffect(() => {
-    const id = getStoredPalette();
-    applyPalette(id);
-    setActive(id);
+    const { preview, palette } = syncPaletteFromUrl();
+    setEnabled(preview);
+    setActive(palette);
+
+    // Drop query params from the address bar so the unlock URL isn't shared by accident
+    if (window.location.search.includes('palettes=') || window.location.search.includes('palette=')) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('palettes');
+      url.searchParams.delete('palette');
+      window.history.replaceState({}, '', `${url.pathname}${url.hash}`);
+    }
   }, []);
+
+  if (!enabled) {
+    return null;
+  }
 
   function select(id: PaletteId) {
     applyPalette(id);
     setActive(id);
+  }
+
+  function lock() {
+    setPalettePreviewEnabled(false);
+    applyPalette('warm-gold');
+    setEnabled(false);
   }
 
   if (!open) {
@@ -34,20 +64,29 @@ export function PaletteToggle() {
       <div className="flex items-start justify-between gap-2 mb-2">
         <div>
           <p className="text-xs font-bold uppercase tracking-wider text-primary">
-            Palette preview
+            Private palettes
           </p>
           <p className="text-[11px] text-muted-foreground mt-0.5">
-            Temp — hide after you pick a winner
+            Only on this browser — unlock via ?palettes=1
           </p>
         </div>
-        <button
-          type="button"
-          onClick={() => setOpen(false)}
-          className="text-xs text-muted-foreground hover:text-foreground px-1"
-          aria-label="Hide palette picker"
-        >
-          Hide
-        </button>
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={lock}
+            className="text-xs text-muted-foreground hover:text-foreground px-1"
+          >
+            Lock
+          </button>
+          <button
+            type="button"
+            onClick={() => setOpen(false)}
+            className="text-xs text-muted-foreground hover:text-foreground px-1"
+            aria-label="Minimize palette picker"
+          >
+            Hide
+          </button>
+        </div>
       </div>
       <div className="flex flex-col gap-1.5">
         {palettes.map((palette) => {
@@ -87,3 +126,6 @@ export function PaletteToggle() {
     </div>
   );
 }
+
+// Re-export helper so FOUC script logic stays documented in one place
+export { isPalettePreviewEnabled, getActivePalette };

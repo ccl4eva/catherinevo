@@ -60,7 +60,8 @@
     <script>
       (function () {
         try {
-          var id = localStorage.getItem('cv-palette');
+          var preview = localStorage.getItem('cv-palette-preview') === '1';
+          var id = preview ? localStorage.getItem('cv-palette') : 'warm-gold';
           var allowed = ['warm-gold', 'ink-paper', 'harbor', 'grove', 'plum-dusk'];
           document.documentElement.setAttribute(
             'data-palette',
