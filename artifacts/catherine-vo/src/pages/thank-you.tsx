@@ -21,10 +21,10 @@ export default function ThankYou() {
       <main className="relative z-10 flex-1 flex items-center justify-center px-6 py-24">
         <div className="max-w-lg w-full">
           <p className="text-lg md:text-xl leading-relaxed text-foreground">
-            <strong className="font-semibold">Thank you.</strong> I review every note personally.
+            <strong className="font-semibold">Thank you for your message.</strong>
           </p>
           <p className="mt-5 text-base md:text-lg leading-relaxed text-muted-foreground mb-10">
-            If your current stage and operational bottlenecks match my capacity for Q3/Q4 (5–15 hrs/wk), I will email you a private scheduling link within 24 hours.
+            If we are a strong mutual fit for this season, I will email you a private scheduling link within a day.
           </p>
           <Link
             href="/"
