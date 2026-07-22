@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Form detection — not for visitors</title>
+  </head>
+  <body>
+    <!--
+      Netlify parses static HTML at deploy to register forms.
+      This file is copied into the publish folder as-is (Vite public/).
+    -->
+    <form name="fractional-inquiry" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="fractional-inquiry" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="text" name="company-size" />
+      <textarea name="bottleneck"></textarea>
+    </form>
+  </body>
+</html>

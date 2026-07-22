@@ -1,1 +1,1 @@
-/*    /index.html   200
+# SPA fallback lives in netlify.toml (GET/HEAD only) so form POSTs are not swallowed

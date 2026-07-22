@@ -6,8 +6,9 @@
   NODE_VERSION = "20"
   PNPM_VERSION = "10"
 
-# SPA fallback for client-side routing (wouter)
+# SPA fallback for client-side routing — GET/HEAD only so form POSTs reach Netlify Forms
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+  conditions = {Method = ["GET", "HEAD"]}

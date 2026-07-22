@@ -400,7 +400,7 @@ export default function Home() {
 
               <div className="flex flex-col gap-6 md:gap-7 text-base md:text-lg text-muted-foreground leading-relaxed">
                 <motion.p variants={fadeUp}>
-                  I spent my early foundation bridging two distinct worlds: computer science at Columbia University and fine art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
+                  I spent my early foundation bridging two distinct worlds: Computer Science at Columbia University and Fine Art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
                 </motion.p>
                 <motion.p variants={fadeUp}>
                   Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations like H-E-B.

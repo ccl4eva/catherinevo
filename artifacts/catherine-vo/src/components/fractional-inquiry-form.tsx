@@ -8,12 +8,6 @@ const fieldClass =
 
 const labelClass = "block text-sm font-medium mb-2 text-muted-foreground";
 
-function encode(data: Record<string, string>) {
-  return Object.keys(data)
-    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key] ?? "")}`)
-    .join("&");
-}
-
 type FractionalInquiryFormProps = {
   idPrefix?: string;
   onSubmitted?: () => void;
@@ -31,33 +25,42 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    const payload: Record<string, string> = {};
-    formData.forEach((value, key) => {
-      payload[key] = String(value);
-    });
+
+    // Required for Netlify to route the submission to the right form
+    if (!formData.get("form-name")) {
+      formData.set("form-name", "fractional-inquiry");
+    }
 
     try {
+      // Local preview: Netlify Forms only work on a deployed Netlify URL
+      if (import.meta.env.DEV) {
+        console.info("[forms] Dev mode — skipping Netlify POST. Deploy to Netlify to receive submissions.");
+        setSubmitted(true);
+        onSubmitted?.();
+        trackEvent("form_submit");
+        return;
+      }
+
+      const body = new URLSearchParams();
+      formData.forEach((value, key) => {
+        body.append(key, String(value));
+      });
+
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode(payload),
+        body: body.toString(),
       });
 
       if (!response.ok) {
-        throw new Error("Something went wrong. Please try again or email cat@catherinevo.com.");
+        throw new Error("Form endpoint did not accept the submission.");
       }
 
       setSubmitted(true);
       onSubmitted?.();
       trackEvent("form_submit");
     } catch {
-      if (import.meta.env.DEV) {
-        setSubmitted(true);
-        onSubmitted?.();
-        trackEvent("form_submit");
-      } else {
-        setError("Something went wrong. Please try again or email cat@catherinevo.com.");
-      }
+      setError("Something went wrong. Please try again or email cat@catherinevo.com.");
     } finally {
       setSubmitting(false);
     }
