@@ -452,21 +452,14 @@ export default function Home() {
               );
             })}
           </motion.div>
+        </div>
 
-          {/* Hard spacer — cards → Who I Partner With */}
-          <div style={{ height: 120 }} aria-hidden />
-
+        {/* Separate band so spacing can't collapse against the card grid */}
+        <div className="max-w-7xl mx-auto relative z-10" style={{ paddingTop: 96 }}>
           <div className="max-w-3xl">
-            <motion.h3
-              className="block font-serif text-3xl md:text-4xl text-foreground"
-              style={{ paddingBottom: 16 }}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
+            <h3 className="font-serif text-3xl md:text-4xl text-foreground" style={{ paddingBottom: 16 }}>
               Who I Partner With
-            </motion.h3>
+            </h3>
             <ul className="flex flex-col gap-8 md:gap-10 list-none m-0 p-0 text-lg text-muted-foreground leading-relaxed">
               <li>
                 <span className="font-medium text-foreground">You have a core leadership team:</span>{" "}
