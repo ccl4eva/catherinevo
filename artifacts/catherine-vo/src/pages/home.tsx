@@ -360,7 +360,7 @@ export default function Home() {
             transition={{ duration: 0.7 }}
           >
             <div
-              className="mb-4 md:mb-6 font-serif italic text-[7.5rem] md:text-[10rem] lg:text-[12rem] leading-[0.7] text-secondary select-none"
+              className="-mb-6 md:-mb-10 lg:-mb-12 font-serif italic text-[7.5rem] md:text-[10rem] lg:text-[12rem] leading-[0.55] text-secondary select-none"
               aria-hidden
             >
               &ldquo;
@@ -426,7 +426,8 @@ export default function Home() {
                   Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations.
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  In business operations, that means I don't walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, my goal is simple: to build the structural frame so you can respond isntead of reacting and get back to leading your business.
+                  In business operations, that means I don't walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, 
+                  my goal is simple: to build the structural frame so you can respond instead of reacting and get back to leading your business.
                 </motion.p>
               </div>
             </motion.div>
