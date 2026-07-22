@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const fieldClass =
   "w-full px-4 py-3 rounded-xl border border-secondary/60 bg-background text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-ring/40 transition-shadow";
@@ -48,10 +49,12 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
 
       setSubmitted(true);
       onSubmitted?.();
+      trackEvent("form_submit");
     } catch {
       if (import.meta.env.DEV) {
         setSubmitted(true);
         onSubmitted?.();
+        trackEvent("form_submit");
       } else {
         setError("Something went wrong. Please try again or email cat@catherinevo.com.");
       }

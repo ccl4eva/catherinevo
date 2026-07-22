@@ -16,6 +16,7 @@ import {
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useEffect, useState, useCallback } from "react";
 import { FractionalInquiryForm } from "@/components/fractional-inquiry-form";
+import { trackEvent } from "@/lib/analytics";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 30 },
@@ -164,6 +165,7 @@ export default function Home() {
   const openInquiry = useCallback(() => {
     setInquiryOpen(true);
     setInquirySubmitted(false);
+    trackEvent("explore_open");
     window.setTimeout(() => {
       document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 80);
@@ -217,6 +219,7 @@ export default function Home() {
           <div className="relative flex items-center gap-3 md:gap-5 text-sm font-medium text-muted-foreground">
             <a
               href="mailto:cat@catherinevo.com"
+              onClick={() => trackEvent("mailto_click", { location: "header" })}
               className={`hidden lg:flex items-center gap-2 hover:text-primary transition-opacity duration-300 ${
                 showHeaderCta ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
@@ -277,7 +280,7 @@ export default function Home() {
             </motion.h1>
             
             <motion.p variants={fadeUp} className="text-lg md:text-xl leading-relaxed mb-10 max-w-2xl text-muted-foreground">
-              Hi, I'm Catherine Vo. I step into your active ecosystem to design the systems and cadence that replace constant reaction with structured execution—so your business scales without burning out your people.
+              Hi, I'm <strong className="font-semibold text-foreground">Catherine Vo</strong>. I step into your active ecosystem to design the systems and cadence that replace constant reaction with structured execution—so your business scales without burning out your people.
             </motion.p>
 
             <motion.div variants={fadeUp} className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
@@ -297,7 +300,7 @@ export default function Home() {
                 href="#work"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl font-medium transition-all hover:bg-foreground/5 border border-foreground/20 text-foreground flex items-center justify-center"
               >
-                See Selected Work
+                See selected work
               </a>
             </motion.div>
           </motion.div>
@@ -376,7 +379,7 @@ export default function Home() {
               <div className="absolute inset-0 rounded-2xl -translate-x-2 -translate-y-2 border-2 border-secondary" aria-hidden />
               <img
                 src="/images/catherine-headshot.jpg"
-                alt="Catherine Vo"
+                alt="Catherine Vo, fractional Chief of Staff based in Austin"
                 className="absolute inset-0 z-10 w-full h-full object-cover rounded-2xl shadow-xl border-[3px] border-secondary"
               />
             </motion.div>
@@ -783,7 +786,11 @@ export default function Home() {
             
             <div className="flex flex-col items-center md:items-end gap-1">
               <span className="font-bold text-sm tracking-wider uppercase mb-1 text-foreground">Direct</span>
-              <a href="mailto:cat@catherinevo.com" className="hover:underline decoration-primary underline-offset-4">
+              <a
+                href="mailto:cat@catherinevo.com"
+                onClick={() => trackEvent("mailto_click", { location: "footer" })}
+                className="hover:underline decoration-primary underline-offset-4"
+              >
                 cat@catherinevo.com
               </a>
               <a href="tel:5129097536" className="hover:underline decoration-primary underline-offset-4">
