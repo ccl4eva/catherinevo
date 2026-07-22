@@ -75,24 +75,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <!-- Netlify Forms: must exist in deployed HTML for form registration -->
-    <form
-      name="fractional-inquiry"
-      method="POST"
-      action="/"
-      data-netlify="true"
-      netlify-honeypot="bot-field"
-      style="position:absolute;left:-9999px;height:1px;overflow:hidden"
-      aria-hidden="true"
-      tabindex="-1"
-    >
-      <input type="hidden" name="form-name" value="fractional-inquiry" />
-      <input name="bot-field" />
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="company-size" />
-      <textarea name="bottleneck"></textarea>
-    </form>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

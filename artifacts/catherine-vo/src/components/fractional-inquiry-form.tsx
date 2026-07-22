@@ -8,8 +8,8 @@ const fieldClass =
 
 const labelClass = "block text-sm font-medium mb-2 text-muted-foreground";
 
-const FORM_ENDPOINT = "/";
-const FORM_NAME = "fractional-inquiry";
+/** Emails submissions to cat@catherinevo.com (FormSubmit) — bypasses flaky Netlify Forms on SPAs */
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/ajax/cat@catherinevo.com";
 
 type FractionalInquiryFormProps = {
   idPrefix?: string;
@@ -28,31 +28,44 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
 
     const form = event.currentTarget;
     const formData = new FormData(form);
-    formData.set("form-name", FORM_NAME);
+
+    // Honeypot — if filled, pretend success and drop
+    if (String(formData.get("bot-field") || "").trim()) {
+      setSubmitted(true);
+      onSubmitted?.();
+      setSubmitting(false);
+      return;
+    }
+
+    const payload = {
+      name: String(formData.get("name") || ""),
+      email: String(formData.get("email") || ""),
+      company_size: String(formData.get("company-size") || ""),
+      bottleneck: String(formData.get("bottleneck") || ""),
+      _subject: "New fractional inquiry — catherinevo.com",
+      _template: "table",
+      _captcha: "false",
+    };
 
     try {
-      // Local preview: Netlify Forms only work on a deployed Netlify URL
-      if (import.meta.env.DEV) {
-        console.info("[forms] Dev mode — skipping Netlify POST. Deploy to Netlify to receive submissions.");
-        setSubmitted(true);
-        onSubmitted?.();
-        trackEvent("form_submit");
-        return;
-      }
-
-      const body = new URLSearchParams();
-      formData.forEach((value, key) => {
-        body.append(key, String(value));
-      });
-
-      const response = await fetch(FORM_ENDPOINT, {
+      const response = await fetch(FORMSUBMIT_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: body.toString(),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        throw new Error(`Form endpoint returned ${response.status}`);
+      const result = (await response.json().catch(() => null)) as
+        | { success?: string | boolean; message?: string }
+        | null;
+
+      const succeeded =
+        response.ok && (result?.success === true || result?.success === "true");
+
+      if (!succeeded) {
+        throw new Error(result?.message || `Submit failed (${response.status})`);
       }
 
       setSubmitted(true);
@@ -125,11 +138,6 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
       ) : (
         <motion.form
           key="form"
-          name="fractional-inquiry"
-          method="POST"
-          action="/"
-          data-netlify="true"
-          netlify-honeypot="bot-field"
           onSubmit={handleSubmit}
           className="w-full max-w-xl mx-auto p-8 md:p-10 rounded-2xl bg-card border border-border shadow-sm"
           initial={{ opacity: 0, y: 18 }}
@@ -137,8 +145,6 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
           exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         >
-          <input type="hidden" name="form-name" value="fractional-inquiry" />
-
           <p className="hidden" aria-hidden="true">
             <label>
               Don’t fill this out if you're human:{" "}
