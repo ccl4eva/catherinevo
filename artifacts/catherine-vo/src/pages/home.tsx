@@ -62,7 +62,7 @@ const howIWork: {
     title: "Execute & Embed",
     subtitle: "Hands-On Implementation",
     body: "I don't hand you a slide deck and walk away. I roll up my sleeves and build the systems, automate the manual work, and drive cross-functional execution. I create documentation and playbooks so the changes actually stick long-term.",
-    tools: "Technical integrations (Salesforce, Power BI, custom sheets/automations), process documentation, team coaching.",
+    tools: "Technical integrations (ServiceNow, Salesforce, Power BI, custom sheets/automations), process documentation, team coaching.",
     icon: Hammer,
   },
 ];
@@ -166,9 +166,13 @@ export default function Home() {
     setInquiryOpen(true);
     setInquirySubmitted(false);
     trackEvent("explore_open");
-    window.setTimeout(() => {
+    // #explore is a stable footer anchor (always in the DOM), so one click scrolls reliably.
+    // A short follow-up catches the form expanding into view after mount.
+    const scrollToForm = () => {
       document.getElementById("explore")?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
+    };
+    window.requestAnimationFrame(scrollToForm);
+    window.setTimeout(scrollToForm, 160);
   }, []);
 
   const closeInquiry = useCallback(() => {
@@ -702,75 +706,79 @@ export default function Home() {
             No sales pitches or pressure—just a direct conversation about your current operational bottlenecks, your leadership team, and how we can bring structure to the workflow so you can lead with clarity.
           </motion.p>
           
-          <AnimatePresence mode="wait">
-            {!inquiryOpen ? (
-              <motion.div
-                key="explore-cta"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -6 }}
-                transition={{ duration: 0.3 }}
-              >
-                <button 
-                  type="button"
-                  onClick={openInquiry}
-                  aria-expanded={false}
-                  aria-controls="explore"
-                  className="cta-glow px-10 py-5 rounded-xl font-medium text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] mb-16 inline-flex items-center gap-3 text-primary-foreground"
-                >
-                  <span className="relative z-[1] inline-flex items-center gap-3">
-                    Explore working together
-                    <ArrowRight size={20} />
-                  </span>
-                </button>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="explore-panel"
-                id="explore"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="w-full overflow-hidden mb-16 scroll-mt-28"
-                aria-label="Inquiry form"
-              >
+          {/* Stable anchor so scroll works on the first click */}
+          <div id="explore" className="w-full scroll-mt-28">
+            <AnimatePresence initial={false}>
+              {!inquiryOpen ? (
                 <motion.div
-                  className="mx-auto mb-8 h-px max-w-xl origin-center bg-secondary"
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                  aria-hidden
-                />
-                <div className="mx-auto max-w-xl text-left">
-                  {!inquirySubmitted ? (
-                    <div className="mb-8 flex items-start justify-between gap-4">
-                      <div>
-                        <p className="text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
-                          Next Step
-                        </p>
-                        <h3 className="font-serif text-3xl md:text-4xl text-foreground">
-                          What's getting in the way?
-                        </h3>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={closeInquiry}
-                        className="shrink-0 mt-1 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors"
-                        aria-label="Close inquiry form"
-                      >
-                        <X size={20} />
-                      </button>
-                    </div>
-                  ) : null}
-                  <FractionalInquiryForm
-                    idPrefix="home-inquiry"
-                    onSubmitted={() => setInquirySubmitted(true)}
+                  key="explore-cta"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="flex justify-center"
+                >
+                  <button 
+                    type="button"
+                    onClick={openInquiry}
+                    aria-expanded={false}
+                    aria-controls="explore-panel"
+                    className="cta-glow px-10 py-5 rounded-xl font-medium text-lg transition-transform hover:scale-[1.02] active:scale-[0.98] mb-16 inline-flex items-center gap-3 text-primary-foreground"
+                  >
+                    <span className="relative z-[1] inline-flex items-center gap-3">
+                      Explore working together
+                      <ArrowRight size={20} />
+                    </span>
+                  </button>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="explore-panel"
+                  id="explore-panel"
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full overflow-hidden mb-16"
+                  aria-label="Inquiry form"
+                >
+                  <motion.div
+                    className="mx-auto mb-8 h-px max-w-xl origin-center bg-secondary"
+                    initial={{ scaleX: 0 }}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                    aria-hidden
                   />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  <div className="mx-auto max-w-xl text-left">
+                    {!inquirySubmitted ? (
+                      <div className="mb-8 flex items-start justify-between gap-4">
+                        <div>
+                          <p className="text-sm font-bold uppercase tracking-[0.2em] text-secondary mb-3">
+                            Next Step
+                          </p>
+                          <h3 className="font-serif text-3xl md:text-4xl text-foreground">
+                            What's getting in the way?
+                          </h3>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={closeInquiry}
+                          className="shrink-0 mt-1 p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-background/80 transition-colors"
+                          aria-label="Close inquiry form"
+                        >
+                          <X size={20} />
+                        </button>
+                      </div>
+                    ) : null}
+                    <FractionalInquiryForm
+                      idPrefix="home-inquiry"
+                      onSubmitted={() => setInquirySubmitted(true)}
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           
           <motion.div variants={fadeUp} className="w-full h-px mb-12 bg-muted-foreground/15"></motion.div>
           
