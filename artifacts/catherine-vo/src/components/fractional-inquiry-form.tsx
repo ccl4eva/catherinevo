@@ -8,7 +8,7 @@ const fieldClass =
 
 const labelClass = "block text-sm font-medium mb-2 text-muted-foreground";
 
-const FORM_ENDPOINT = "/netlify-form.html";
+const FORM_ENDPOINT = "/";
 const FORM_NAME = "fractional-inquiry";
 
 type FractionalInquiryFormProps = {
@@ -45,8 +45,6 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
         body.append(key, String(value));
       });
 
-      // POST to the static HTML form file (not "/") so Netlify receives it
-      // even when the SPA redirect only handles GET.
       const response = await fetch(FORM_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -60,7 +58,8 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
       setSubmitted(true);
       onSubmitted?.();
       trackEvent("form_submit");
-    } catch {
+    } catch (err) {
+      console.error("[forms] submit failed", err);
       setError("Something went wrong. Please try again or email cat@catherinevo.com.");
     } finally {
       setSubmitting(false);
@@ -128,7 +127,7 @@ export function FractionalInquiryForm({ idPrefix = "inquiry", onSubmitted }: Fra
           key="form"
           name="fractional-inquiry"
           method="POST"
-          action={FORM_ENDPOINT}
+          action="/"
           data-netlify="true"
           netlify-honeypot="bot-field"
           onSubmit={handleSubmit}

@@ -403,10 +403,10 @@ export default function Home() {
                   I spent my early foundation bridging two distinct worlds: Computer Science at Columbia University and Fine Art at NYU. That blend taught me early on that building systems and solving creative challenges require the same core discipline—taking what is in front of you, processing the constraints, and engineering a functional structure.
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations like H-E-B.
+                  Over the last 15+ years, I've applied that mindset to software engineering, product management, and high-stakes enterprise operations.
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  In business operations, that means I don't walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, my goal is simple: to build the structural frame so you can stop reacting and get back to leading your business.
+                  In business operations, that means I don't walk in with a rigid, one-size-fits-all corporate playbook. I step into your current ecosystem, look at the actual friction points, and build clean, custom architecture that brings order to the chaos. Whether I'm running executive vision workshops, establishing a weekly cadence, or cleaning up data flows, my goal is simple: to build the structural frame so you can respond isntead of reacting and get back to leading your business.
                 </motion.p>
               </div>
             </motion.div>
@@ -620,7 +620,7 @@ export default function Home() {
             What I Take On
           </motion.h2>
           <motion.p variants={fadeUp} className="text-lg text-muted-foreground">
-            Facilitation, operating rhythm, and practical systems — for companies roughly 15–150, across industries.
+          The messy operational bottlenecks, cross-functional friction, and scaling roadblocks that core leadership teams face.
           </motion.p>
         </motion.div>
         
