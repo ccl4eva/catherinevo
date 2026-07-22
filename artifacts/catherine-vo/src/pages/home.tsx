@@ -701,10 +701,6 @@ export default function Home() {
 
       {/* Footer / CTA Invitation */}
       <footer className="w-full relative px-6 py-24 md:py-32 overflow-hidden bg-card">
-        <div className="absolute -top-10 -right-20 text-[250px] font-serif leading-none opacity-[0.03] pointer-events-none whitespace-nowrap text-foreground">
-          Scale
-        </div>
-
         <motion.div 
           className="max-w-4xl mx-auto relative z-10 flex flex-col items-center text-center"
           initial="hidden"
