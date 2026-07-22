@@ -351,7 +351,7 @@ export default function Home() {
       {/* About Me */}
       <section id="experience" className="w-full py-24 md:py-32 px-6">
         <div className="max-w-7xl mx-auto flex flex-col gap-16 md:gap-24">
-          {/* Statement quote — mark in document flow so it never crowds the text */}
+          {/* Statement quote — hidden for now; restore/replace with a third-party quote later
           <motion.blockquote
             className="relative w-full rounded-2xl bg-card/80 px-8 py-12 md:px-14 md:py-16 lg:px-16 lg:py-20 overflow-hidden"
             initial={{ opacity: 0, y: 24 }}
@@ -365,10 +365,11 @@ export default function Home() {
             >
               &ldquo;
             </div>
-            <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-tight text-foreground max-w-4xl">
+            <p className="font-serif text-3xl md:text-4xl lg:text-5xl leading-[1.2] tracking-tight text-foreground w-full">
               There is an art to taking what is already in your environment, processing the challenge, and creating something new from it.
             </p>
           </motion.blockquote>
+          */}
 
           {/* Photo | label + bio */}
           <div className="flex flex-col md:flex-row md:items-start gap-10 md:gap-14 lg:gap-20">
