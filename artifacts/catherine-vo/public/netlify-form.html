@@ -2,14 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Form detection — not for visitors</title>
+    <meta http-equiv="refresh" content="0;url=/" />
+    <title>Redirecting…</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 28rem;
+        margin: 3rem auto;
+        padding: 0 1.25rem;
+        color: #1a1710;
+      }
+      a { color: #8b6914; }
+      /* Keep fields in the DOM for Netlify; hide from people */
+      .netlify-detect {
+        position: absolute;
+        left: -9999px;
+        height: 1px;
+        overflow: hidden;
+      }
+    </style>
   </head>
   <body>
+    <p>Taking you back to the site… <a href="/">Continue</a></p>
+
     <!--
-      Netlify parses static HTML at deploy to register forms.
-      This file is copied into the publish folder as-is (Vite public/).
+      Netlify parses this HTML at deploy to register the form.
+      Humans should never fill this page — the real form is on the homepage.
     -->
-    <form name="fractional-inquiry" method="POST" action="/netlify-form.html" data-netlify="true" netlify netlify-honeypot="bot-field">
+    <form
+      class="netlify-detect"
+      name="fractional-inquiry"
+      method="POST"
+      action="/netlify-form.html"
+      data-netlify="true"
+      netlify
+      netlify-honeypot="bot-field"
+    >
       <input type="hidden" name="form-name" value="fractional-inquiry" />
       <input name="bot-field" />
       <input type="text" name="name" />
