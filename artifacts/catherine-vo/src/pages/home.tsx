@@ -61,7 +61,7 @@ const howIWork: {
     step: "03",
     title: "Execute & Embed",
     subtitle: "Hands-On Implementation",
-    body: "I don't hand you a slide deck and walk away. I roll up my sleeves and build the systems, automate the manual work, and drive cross-functional execution. I create documentation and playbooks so the changes actually stick long-term.",
+    body: "I don't hand you a slide deck and walk away. I can build the systems, automate the manual work, and drive cross-functional execution. I create documentation and playbooks so the changes can stick long-term.",
     tools: "Technical integrations (ServiceNow, Salesforce, Power BI, custom sheets/automations), process documentation, team coaching.",
     icon: Hammer,
   },
