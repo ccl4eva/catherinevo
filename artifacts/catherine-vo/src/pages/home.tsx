@@ -420,7 +420,7 @@ export default function Home() {
               <div className="flex flex-col gap-6 md:gap-7 text-base md:text-lg text-muted-foreground leading-relaxed">
                 <motion.p variants={fadeUp}>
                   I spent my early foundation bridging two distinct worlds: Computer Science at Columbia University and Fine Art at NYU. 
-                  That blend taught me early on that building systems and solving creative challenges require the same core discipline of taking what's n front of you, 
+                  That blend taught me early on that building systems and solving creative challenges require the same core discipline of taking what's in front of you, 
                   processing the constraints, and designing a functional structure where creativity and growth results.
                 </motion.p>
                 <motion.p variants={fadeUp}>
